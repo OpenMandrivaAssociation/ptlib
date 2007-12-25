@@ -7,7 +7,7 @@
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	2.1.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -67,6 +67,7 @@ Summary:	Portable Windows Libary development files
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
+Conflicts:	%{mklibname pwlib -d}
 
 %description -n	%{develname}
 Header files and libraries for developing applications that use ptlib.
