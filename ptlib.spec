@@ -153,9 +153,13 @@ find %{buildroot} -type f -perm 0555 -exec chmod 755 {} \;
 find %{buildroot} -type f -perm 0444 -exec chmod 644 {} \;
 find %{buildroot}%{_libdir} -type f -name '*.so*' -exec chmod 755 {} \;
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
