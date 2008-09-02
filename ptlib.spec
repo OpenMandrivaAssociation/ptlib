@@ -1,3 +1,6 @@
+%define _disable_ld_no_undefined	1
+%define _disable_ld_as_needed		1
+
 %define	fname	pt
 
 %define major		2
@@ -6,32 +9,31 @@
 
 Summary:	Portable Tool Library
 Name:		ptlib
-Version:	2.2.0
-Release:	%mkrel 2
+Version:	2.3.1
+Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
-Source0:	http://prdownloads.sourceforge.net/opalvoip/%{name}-%{version}-src.tar.bz2
+# Always use the GNOME.org version, not the opalvoip.org version. The
+# major user of ptlib and opal is Ekiga, and Ekiga is designed to work
+# with the GNOME.org versions of these libraries, not the opalvoip.org
+# versions. - AdamW 2008/09
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/2.3/%{name}-%{version}.tar.bz2
 Patch0:		ptlib-2.0.1-libname.patch
 Patch1:		pwlib-1.8.0-fix-libpt.so-symlink.diff
-Patch2:		ptlib-2.0.1-lib64.patch
+Patch2:		ptlib-2.3.1-lib64.patch
 # By Anssi: fixes preprocessing tokens, fixes build of h323plus
 # - AdamW 2007/12
 Patch3:		pwlib-1.12.0-preprocess.patch
 BuildRequires:	alsa-lib-devel
 BuildRequires:	esound-devel
-
 BuildRequires:	autoconf
 BuildRequires:	bison
 BuildRequires:  expat-devel
 BuildRequires:	flex
 BuildRequires:	gcc-c++
 BuildRequires:	libavc1394-devel
-%if %mdkversion >= 200710
 BuildRequires:  dc1394-devel >= 0.9.5
-%else
-BuildRequires:  dc1394-devel = 1.2.1
-%endif
 BuildRequires:	libdv-devel
 BuildRequires:	libraw1394-devel
 BuildRequires:	openldap-devel
@@ -47,7 +49,7 @@ many years ago as a method to produce applications to run on both
 Microsoft Windows and Unix systems. It also was to have a Macintosh
 port but this never eventuated.
 
-This is the Vox Gratia version of ptlib.
+This is the GNOME.org version of ptlib.
 
 %package -n	%{libname}
 Summary:	Portable Windows Libary
@@ -60,7 +62,7 @@ many years ago as a method to produce applications to run on both
 Microsoft Windows and Unix systems. It also was to have a Macintosh
 port but this never eventuated.
 
-This is the Vox Gratia version of ptlib.
+This is the GNOME.org version of ptlib.
 
 %package -n	%{develname}
 Summary:	Portable Windows Libary development files
@@ -104,13 +106,14 @@ Provides:	%{name}-plugins-avc = %{version}-%{release}
 This package contains the AVC plugin for ptlib.
 
 %prep
-%setup -q -n %{name}_%{version}
+%setup -q
 %patch0 -p0 -b .libname
 %patch1 -p0 -b .libptsymlink
 %patch2 -p1 -b .lib64
 %patch3 -p1 -b .preprocess
 
 #needed by patch2
+aclocal
 autoconf
 
 %build
@@ -129,13 +132,8 @@ autoconf
 
 %makeinstall_std
 
-%if %mdkversion >= 1020
 %multiarch_includes %{buildroot}%{_includedir}/ptbuildopts.h
 %multiarch_includes %{buildroot}%{_includedir}/ptlib/pluginmgr.h
-%endif
-
-#fix ptlibDIR
-perl -pi -e 's|(ptlibDIR.*)=.*|\1= %{_datadir}/ptlib|' %{buildroot}%{_datadir}/ptlib/make/ptbuildopts.mak
 
 #fix doc perms
 chmod a+r *.txt
@@ -175,6 +173,7 @@ find %{buildroot}%{_libdir} -type f -name '*.so*' -exec chmod 755 {} \;
 %attr(0755,root,root) %{_libdir}/*.so
 %{_includedir}/*
 %{_datadir}/%{name}
+%{_libdir}/pkgconfig/%{name}.pc
 
 %files -n %{libname}-plugins
 %defattr(-,root,root)
