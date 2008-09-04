@@ -10,7 +10,7 @@
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	2.3.1
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -40,6 +40,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel
 BuildRequires:	SDL-devel
 BuildRequires:	libv4l-devel
+BuildRequires:	unixODBC-devel
 BuildRequires:	sed
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildConflicts: libdc1394-devel >= 2.0.0
