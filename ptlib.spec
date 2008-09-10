@@ -129,7 +129,7 @@ autoconf
     --enable-oss \
     --enable-esd
 
-%make OPTCCFLAGS="" RPM_OPT_FLAGS=""
+%make RPM_OPT_FLAGS="%optflags"
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
