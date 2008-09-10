@@ -10,7 +10,7 @@
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	2.3.1
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -25,6 +25,7 @@ Patch2:		ptlib-2.3.1-lib64.patch
 # By Anssi: fixes preprocessing tokens, fixes build of h323plus
 # - AdamW 2007/12
 Patch3:		pwlib-1.12.0-preprocess.patch
+Patch4:		ptlib-2.3.1-fix-build-with-libv4l.patch
 BuildRequires:	alsa-lib-devel
 BuildRequires:	esound-devel
 BuildRequires:	autoconf
@@ -113,6 +114,7 @@ This package contains the AVC plugin for ptlib.
 %patch1 -p0 -b .libptsymlink
 %patch2 -p1 -b .lib64
 %patch3 -p1 -b .preprocess
+%patch4 -p1
 
 #needed by patch2
 aclocal
