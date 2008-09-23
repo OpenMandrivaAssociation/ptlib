@@ -9,8 +9,8 @@
 
 Summary:	Portable Tool Library
 Name:		ptlib
-Version:	2.3.1
-Release:	%mkrel 4
+Version:	2.4.1
+Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -18,14 +18,7 @@ URL:		http://www.opalvoip.org
 # major user of ptlib and opal is Ekiga, and Ekiga is designed to work
 # with the GNOME.org versions of these libraries, not the opalvoip.org
 # versions. - AdamW 2008/09
-Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/2.3/%{name}-%{version}.tar.bz2
-Patch0:		ptlib-2.0.1-libname.patch
-Patch1:		pwlib-1.8.0-fix-libpt.so-symlink.diff
-Patch2:		ptlib-2.3.1-lib64.patch
-# By Anssi: fixes preprocessing tokens, fixes build of h323plus
-# - AdamW 2007/12
-Patch3:		pwlib-1.12.0-preprocess.patch
-Patch4:		ptlib-2.3.1-fix-build-with-libv4l.patch
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/2.4/%{name}-%{version}.tar.bz2
 BuildRequires:	alsa-lib-devel
 BuildRequires:	esound-devel
 BuildRequires:	autoconf
@@ -110,11 +103,6 @@ This package contains the AVC plugin for ptlib.
 
 %prep
 %setup -q
-%patch0 -p0 -b .libname
-%patch1 -p0 -b .libptsymlink
-%patch2 -p1 -b .lib64
-%patch3 -p1 -b .preprocess
-%patch4 -p1
 
 #needed by patch2
 aclocal
@@ -125,6 +113,7 @@ autoconf
 %if %mdkversion >= 1020
     --enable-v4l2 \
 %endif
+    --enable-v4l \
     --enable-plugins \
     --enable-oss \
     --enable-esd
@@ -175,28 +164,29 @@ find %{buildroot}%{_libdir} -type f -name '*.so*' -exec chmod 755 {} \;
 %doc *.txt
 %attr(0755,root,root) %{_bindir}/ptlib-config
 %attr(0755,root,root) %{_libdir}/*.so
+%{_libdir}/*.*a
 %{_includedir}/*
 %{_datadir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files -n %{libname}-plugins
 %defattr(-,root,root)
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/devices
-%dir %{_libdir}/%{name}/devices/sound
-%dir %{_libdir}/%{name}/devices/videoinput
-%attr(0755,root,root) %{_libdir}/%{name}/devices/sound/alsa_pwplugin.so
-%attr(0755,root,root) %{_libdir}/%{name}/devices/sound/oss_pwplugin.so
-%attr(0755,root,root) %{_libdir}/%{name}/devices/sound/esd_pwplugin.so
-%attr(0755,root,root) %{_libdir}/%{name}/devices/videoinput/v4l_pwplugin.so
+%dir %{_libdir}/%{name}-%{version}
+%dir %{_libdir}/%{name}-%{version}/devices
+%dir %{_libdir}/%{name}-%{version}/devices/sound
+%dir %{_libdir}/%{name}-%{version}/devices/videoinput
+%attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/alsa_pwplugin.so
+%attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/oss_pwplugin.so
+%attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/esd_pwplugin.so
+%attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/v4l_pwplugin.so
 %if %mdkversion >= 1020
-%attr(0755,root,root) %{_libdir}/%{name}/devices/videoinput/v4l2_pwplugin.so
+%attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/v4l2_pwplugin.so
 %endif
 
 %files -n %{libname}-plugins-dc
 %defattr(-,root,root)
-%attr(0755,root,root) %{_libdir}/%{name}/devices/videoinput/dc_pwplugin.so
+%attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/dc_pwplugin.so
 
 %files -n %{libname}-plugins-avc
 %defattr(-,root,root)
-%attr(0755,root,root) %{_libdir}/%{name}/devices/videoinput/avc_pwplugin.so
+%attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/avc_pwplugin.so
