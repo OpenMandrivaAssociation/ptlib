@@ -3,14 +3,14 @@
 
 %define	fname	pt
 
-%define major		2
+%define major		2.4.1
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
 
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	2.4.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -51,6 +51,7 @@ This is the GNOME.org version of ptlib.
 Summary:	Portable Windows Libary
 Group:		System/Libraries
 Requires:	%{libname}-plugins >= %{version}-%{release}
+Obsoletes:	%{mklibname pt 2} < 2.4.1-2mdv
 
 %description -n	%{libname}
 PTLib is a C++ multi-platform abstraction library that has its genesis
@@ -79,6 +80,7 @@ Provides:	%{name}-plugins-alsa = %{version}-%{release}
 Provides:	%{name}-plugins-oss = %{version}-%{release}
 Provides:	%{name}-plugins-v4l = %{version}-%{release}
 Provides:	%{name}-plugins-v4l2 = %{version}-%{release}
+Obsoletes:	%{mklibname pt 2}-plugins < 2.4.1-2mdv
 
 %description -n	%{libname}-plugins
 This package contains the oss, alsa, v4l1 and v4l2 plugins for ptlib.
@@ -88,6 +90,7 @@ Summary:	Dc plugin for ptlib
 Group:		System/Libraries
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins-dc = %{version}-%{release}
+Obsoletes:	%{mklibname pt 2}-plugins-dc < 2.4.1-2mdv
 
 %description -n	%{libname}-plugins-dc
 This package contains the dc plugin for ptlib.
@@ -97,16 +100,13 @@ Summary:	AVC plugin for ptlib
 Group:		System/Libraries
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins-avc = %{version}-%{release}
+Obsoletes:	%{mklibname pt 2}-plugins-avc < 2.4.1-2mdv
 
 %description -n	%{libname}-plugins-avc
 This package contains the AVC plugin for ptlib.
 
 %prep
 %setup -q
-
-#needed by patch2
-aclocal
-autoconf
 
 %build
 %configure2_5x \
@@ -118,7 +118,7 @@ autoconf
     --enable-oss \
     --enable-esd
 
-%make RPM_OPT_FLAGS="%optflags"
+%make RPM_OPT_FLAGS="%{optflags}"
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
@@ -143,6 +143,10 @@ find %{buildroot} -type d -perm 0700 -exec chmod 755 {} \;
 find %{buildroot} -type f -perm 0555 -exec chmod 755 {} \;
 find %{buildroot} -type f -perm 0444 -exec chmod 644 {} \;
 find %{buildroot}%{_libdir} -type f -name '*.so*' -exec chmod 755 {} \;
+
+# it's not stable at major version level...
+rm -f %{buildroot}%{_libdir}/libpt.so.?
+rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
