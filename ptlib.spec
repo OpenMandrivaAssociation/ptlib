@@ -3,14 +3,15 @@
 
 %define	fname	pt
 
-%define major		2.4.1
+%define version		2.4.2
+%define major		%version
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
 
 Summary:	Portable Tool Library
 Name:		ptlib
-Version:	2.4.1
-Release:	%mkrel 2
+Version:	%version
+Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -18,7 +19,7 @@ URL:		http://www.opalvoip.org
 # major user of ptlib and opal is Ekiga, and Ekiga is designed to work
 # with the GNOME.org versions of these libraries, not the opalvoip.org
 # versions. - AdamW 2008/09
-Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/2.4/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/%{name}-%{version}.tar.bz2
 BuildRequires:	alsa-lib-devel
 BuildRequires:	esound-devel
 BuildRequires:	autoconf
