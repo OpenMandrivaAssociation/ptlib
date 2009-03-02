@@ -112,7 +112,7 @@ This package contains the AVC plugin for ptlib.
 %prep
 %setup -q
 %patch -p1
-%patch1 -p1
+%patch1 -p1 -b .odbctypes
 
 %build
 %configure2_5x \
