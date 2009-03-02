@@ -3,7 +3,7 @@
 
 %define	fname	pt
 
-%define version		2.5.2
+%define version		2.6.0
 %define major		%version
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
@@ -21,6 +21,8 @@ URL:		http://www.opalvoip.org
 # versions. - AdamW 2008/09
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/%{name}-%{version}.tar.bz2
 Patch: ptlib-2.5.2-format-string.patch
+# gw build fix for http://bugzilla.gnome.org/show_bug.cgi?id=573824
+Patch1: ptlib-2.6.0-odbctypes.patch
 BuildRequires:	alsa-lib-devel
 BuildRequires:	esound-devel
 BuildRequires:	autoconf
@@ -110,12 +112,11 @@ This package contains the AVC plugin for ptlib.
 %prep
 %setup -q
 %patch -p1
+%patch1 -p1
 
 %build
 %configure2_5x \
-%if %mdkversion >= 1020
     --enable-v4l2 \
-%endif
     --enable-v4l \
     --enable-plugins \
     --enable-oss \
@@ -186,9 +187,7 @@ rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/oss_pwplugin.so
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/esd_pwplugin.so
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/v4l_pwplugin.so
-%if %mdkversion >= 1020
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/v4l2_pwplugin.so
-%endif
 
 %files -n %{libname}-plugins-dc
 %defattr(-,root,root)
