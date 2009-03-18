@@ -3,7 +3,7 @@
 
 %define	fname	pt
 
-%define version		2.6.0
+%define version		2.6.1
 %define major		%version
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
