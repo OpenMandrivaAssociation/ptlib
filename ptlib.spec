@@ -2,7 +2,7 @@
 
 %define	fname	pt
 
-%define version		2.6.1
+%define version		2.6.2
 %define major		%version
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
@@ -10,7 +10,7 @@
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	%version
-Release:	%mkrel 2
+Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -20,8 +20,6 @@ URL:		http://www.opalvoip.org
 # versions. - AdamW 2008/09
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/%{name}-%{version}.tar.bz2
 Patch: ptlib-2.5.2-format-string.patch
-# gw build fix for http://bugzilla.gnome.org/show_bug.cgi?id=573824
-Patch1: ptlib-2.6.0-odbctypes.patch
 BuildRequires:	alsa-lib-devel
 BuildRequires:	esound-devel
 BuildRequires:	autoconf
@@ -111,7 +109,6 @@ This package contains the AVC plugin for ptlib.
 %prep
 %setup -q
 %patch -p1
-%patch1 -p1 -b .odbctypes
 
 %build
 %configure2_5x \
