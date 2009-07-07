@@ -2,7 +2,7 @@
 
 %define	fname	pt
 
-%define version		2.6.2
+%define version		2.6.4
 %define major		%version
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
