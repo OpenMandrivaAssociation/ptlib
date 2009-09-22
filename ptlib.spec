@@ -2,7 +2,7 @@
 
 %define	fname	pt
 
-%define version		2.6.4
+%define version		2.6.5
 %define major		%version
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
@@ -28,7 +28,7 @@ BuildRequires:  expat-devel
 BuildRequires:	flex
 BuildRequires:	gcc-c++
 BuildRequires:	libavc1394-devel
-BuildRequires:  dc1394-devel >= 0.9.5
+BuildRequires:  libdc1394_12-devel >= 0.9.5
 BuildRequires:	libdv-devel
 BuildRequires:	libraw1394_8-devel
 BuildRequires:	openldap-devel
@@ -116,7 +116,9 @@ This package contains the AVC plugin for ptlib.
     --enable-v4l \
     --enable-plugins \
     --enable-oss \
-    --enable-esd
+    --enable-esd \
+    --enable-avc \
+    --enable-dc
 
 %make RPM_OPT_FLAGS="%{optflags}"
 
