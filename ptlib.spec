@@ -94,7 +94,7 @@ Group:		System/Libraries
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins-dc = %{version}-%{release}
 Obsoletes:	%{mklibname pt 2}-plugins-dc < 2.4.1-2mdv
-Obsoletes:	%{_lib}pwlib1-plugins-dc < %{version
+Obsoletes:	%{_lib}pwlib1-plugins-dc < %{version}
 
 %description -n	%{libname}-plugins-dc
 This package contains the dc plugin for ptlib.
