@@ -8,7 +8,7 @@
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	%version
-Release:	%mkrel 2
+Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -35,7 +35,6 @@ BuildRequires:	SDL-devel
 BuildRequires:	libv4l-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	sed
-
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildConflicts: libdc1394-devel >= 2.0.0
 
@@ -52,7 +51,6 @@ Summary:	Portable Windows Libary
 Group:		System/Libraries
 Requires:	%{libname}-plugins >= %{version}-%{release}
 Obsoletes:	%{mklibname pt 2} < 2.4.1-2mdv
-Obsoletes:	%{_lib}pwlib1 < %{version}
 
 %description -n	%{libname}
 PTLib is a C++ multi-platform abstraction library that has its genesis
@@ -68,7 +66,6 @@ Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Conflicts:	%{mklibname pwlib -d}
-Obsoletes:	%{_lib}pwlib-devel < %{version}
 
 %description -n	%{develname}
 Header files and libraries for developing applications that use ptlib.
@@ -83,7 +80,6 @@ Provides:	%{name}-plugins-oss = %{version}-%{release}
 Provides:	%{name}-plugins-v4l = %{version}-%{release}
 Provides:	%{name}-plugins-v4l2 = %{version}-%{release}
 Obsoletes:	%{mklibname pt 2}-plugins < 2.4.1-2mdv
-Obsoletes:	%{_lib}pwlib1-plugins < %{version}
 
 %description -n	%{libname}-plugins
 This package contains the oss, alsa, v4l1 and v4l2 plugins for ptlib.
@@ -94,7 +90,6 @@ Group:		System/Libraries
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins-dc = %{version}-%{release}
 Obsoletes:	%{mklibname pt 2}-plugins-dc < 2.4.1-2mdv
-Obsoletes:	%{_lib}pwlib1-plugins-dc < %{version}
 
 %description -n	%{libname}-plugins-dc
 This package contains the dc plugin for ptlib.
@@ -105,7 +100,6 @@ Group:		System/Libraries
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins-avc = %{version}-%{release}
 Obsoletes:	%{mklibname pt 2}-plugins-avc < 2.4.1-2mdv
-Obsoletes:	%{_lib}pwlib1-plugins-avc < %{version}
 
 %description -n	%{libname}-plugins-avc
 This package contains the AVC plugin for ptlib.
