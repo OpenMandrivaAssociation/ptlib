@@ -109,6 +109,7 @@ This package contains the AVC plugin for ptlib.
 %patch -p1
 
 %build
+%define _disable_ld_no_undefined 1
 %configure2_5x \
     --enable-v4l2 \
     --enable-v4l \
