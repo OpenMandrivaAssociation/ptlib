@@ -1,6 +1,6 @@
 %define	fname	pt
 
-%define version		2.6.5
+%define version		2.6.7
 %define major		%version
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
@@ -8,7 +8,7 @@
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	%version
-Release:	%mkrel 5
+Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
