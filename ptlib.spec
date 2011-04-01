@@ -32,6 +32,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel
 BuildRequires:	SDL-devel
 BuildRequires:	libv4l-devel
+BuildRequires:	pulseaudio-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	sed
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -180,6 +181,7 @@ rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/alsa_pwplugin.so
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/oss_pwplugin.so
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/esd_pwplugin.so
+%attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/pulse_pwplugin.so
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/v4l2_pwplugin.so
 
 %files -n %{libname}-plugins-dc
