@@ -8,7 +8,7 @@
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	%version
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -125,6 +125,7 @@ This package contains the AVC plugin for ptlib.
 %makeinstall_std
 
 %multiarch_includes %{buildroot}%{_includedir}/ptbuildopts.h
+
 %multiarch_includes %{buildroot}%{_includedir}/ptlib/pluginmgr.h
 
 #fix doc perms
@@ -169,6 +170,9 @@ rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 %attr(0755,root,root) %{_libdir}/*.so
 %{_libdir}/*.*a
 %{_includedir}/*
+%{multiarch_includedir}/ptbuildopts.h
+%dir %{multiarch_includedir}/ptlib
+%{multiarch_includedir}/ptlib/pluginmgr.h
 %{_datadir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
