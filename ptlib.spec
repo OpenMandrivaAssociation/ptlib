@@ -1,42 +1,38 @@
 %define	fname	pt
 
-%define version		2.10.1
-%define major		%version
+%define version		2.10.2
+%define major		%{version}
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
 
+%define url_ver %(echo %version | cut -d. -f1,2)
+
 Summary:	Portable Tool Library
 Name:		ptlib
-Version:	%version
+Version:	%{version}
 Release:	%mkrel 1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
-# Always use the GNOME.org version, not the opalvoip.org version. The
-# major user of ptlib and opal is Ekiga, and Ekiga is designed to work
-# with the GNOME.org versions of these libraries, not the opalvoip.org
-# versions. - AdamW 2008/09
-Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/2.10/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/%{url_ver}/%{name}-%{version}.tar.xz
 BuildRequires:	alsa-lib-devel
-BuildRequires:	esound-devel
 BuildRequires:	autoconf
 BuildRequires:	bison
-BuildRequires:  expat-devel
+BuildRequires:	expat-devel
 BuildRequires:	flex
 BuildRequires:	gcc-c++
 BuildRequires:	libavc1394-devel
-BuildRequires:  libdc1394_12-devel >= 0.9.5
+BuildRequires:	libdc1394_12-devel >= 0.9.5
 BuildRequires:	libdv-devel
 BuildRequires:	libraw1394_8-devel
 BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel
 BuildRequires:	SDL-devel
-BuildRequires:	libv4l-devel
-BuildRequires:	pulseaudio-devel
 BuildRequires:	unixODBC-devel
+BuildRequires:	pulseaudio-devel
 BuildRequires:	sed
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildConflicts: libdc1394-devel >= 2.0.0
+BuildConflicts:	libdc1394-devel >= 2.0.0
 
 %description
 PTLib is a C++ multi-platform abstraction library that has its genesis
@@ -77,12 +73,12 @@ Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins = %{version}-%{release}
 Provides:	%{name}-plugins-alsa = %{version}-%{release}
 Provides:	%{name}-plugins-oss = %{version}-%{release}
-Provides:	%{name}-plugins-v4l = %{version}-%{release}
+Provides:	%{name}-plugins-pulseaudio = %{version}-%{release}
 Provides:	%{name}-plugins-v4l2 = %{version}-%{release}
 Obsoletes:	%{mklibname pt 2}-plugins < 2.4.1-2mdv
 
 %description -n	%{libname}-plugins
-This package contains the oss, alsa, v4l1 and v4l2 plugins for ptlib.
+This package contains the oss, alsa, pulseaudio and v4l2 plugins for ptlib.
 
 %package -n	%{libname}-plugins-dc
 Summary:	Dc plugin for ptlib
@@ -110,17 +106,15 @@ This package contains the AVC plugin for ptlib.
 %build
 %configure2_5x \
     --enable-v4l2 \
-    --disable-v4l \
     --enable-plugins \
     --enable-oss \
-    --enable-esd \
     --enable-avc \
     --enable-dc
 
 %make RPM_OPT_FLAGS="%{optflags}"
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %makeinstall_std
 
@@ -170,9 +164,6 @@ rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 %attr(0755,root,root) %{_libdir}/*.so
 %{_libdir}/*.*a
 %{_includedir}/*
-%{multiarch_includedir}/ptbuildopts.h
-%dir %{multiarch_includedir}/ptlib
-%{multiarch_includedir}/ptlib/pluginmgr.h
 %{_datadir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
@@ -184,7 +175,6 @@ rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 %dir %{_libdir}/%{name}-%{version}/devices/videoinput
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/alsa_pwplugin.so
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/oss_pwplugin.so
-%attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/esd_pwplugin.so
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/sound/pulse_pwplugin.so
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/v4l2_pwplugin.so
 
@@ -195,3 +185,4 @@ rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 %files -n %{libname}-plugins-avc
 %defattr(-,root,root)
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/avc_pwplugin.so
+
