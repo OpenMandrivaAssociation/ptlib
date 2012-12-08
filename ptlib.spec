@@ -1,6 +1,5 @@
 %define	fname	pt
 
-%define version		2.10.2
 %define major		%{version}
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
@@ -9,30 +8,31 @@
 
 Summary:	Portable Tool Library
 Name:		ptlib
-Version:	%{version}
-Release:	%mkrel 3
+Version:	2.10.9
+Release:	1
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/%{url_ver}/%{name}-%{version}.tar.xz
-BuildRequires:	alsa-lib-devel
 BuildRequires:	autoconf
 BuildRequires:	bison
-BuildRequires:	expat-devel
 BuildRequires:	flex
-BuildRequires:	gcc-c++
-BuildRequires:	libavc1394-devel
-BuildRequires:	libdc1394_12-devel >= 0.9.5
-BuildRequires:	libdv-devel
-BuildRequires:	libraw1394_8-devel
-BuildRequires:	openldap-devel
-BuildRequires:	openssl-devel
-BuildRequires:	SDL-devel
-BuildRequires:	unixODBC-devel
-BuildRequires:	pulseaudio-devel
 BuildRequires:	sed
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildConflicts:	libdc1394-devel >= 2.0.0
+BuildRequires:	pkgconfig(alsa)
+BuildRequires:	pkgconfig(expat)
+BuildRequires:	pkgconfig(libavc1394)
+BuildRequires:	libdc1394_12-devel >= 0.9.5
+#BuildRequires:	pkgconfig(libdc1394-2)
+BuildRequires:	pkgconfig(libdv)
+BuildRequires:	libraw1394_8-devel
+#BuildRequires:	pkgconfig(libraw1394)
+BuildRequires:	openldap-devel
+BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(sdl)
+BuildRequires:	unixODBC-devel
+BuildRequires:	pkgconfig(libpulse)
+# We are not ready for that yet
+BuildConflicts:	pkgconfig(libdc1394-2)
 
 %description
 PTLib is a C++ multi-platform abstraction library that has its genesis
@@ -46,7 +46,6 @@ This is the GNOME.org version of ptlib.
 Summary:	Portable Windows Libary
 Group:		System/Libraries
 Requires:	%{libname}-plugins >= %{version}-%{release}
-Obsoletes:	%{mklibname pt 2} < 2.4.1-2mdv
 
 %description -n	%{libname}
 PTLib is a C++ multi-platform abstraction library that has its genesis
@@ -75,7 +74,6 @@ Provides:	%{name}-plugins-alsa = %{version}-%{release}
 Provides:	%{name}-plugins-oss = %{version}-%{release}
 Provides:	%{name}-plugins-pulseaudio = %{version}-%{release}
 Provides:	%{name}-plugins-v4l2 = %{version}-%{release}
-Obsoletes:	%{mklibname pt 2}-plugins < 2.4.1-2mdv
 
 %description -n	%{libname}-plugins
 This package contains the oss, alsa, pulseaudio and v4l2 plugins for ptlib.
@@ -85,7 +83,6 @@ Summary:	Dc plugin for ptlib
 Group:		System/Libraries
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins-dc = %{version}-%{release}
-Obsoletes:	%{mklibname pt 2}-plugins-dc < 2.4.1-2mdv
 
 %description -n	%{libname}-plugins-dc
 This package contains the dc plugin for ptlib.
@@ -95,7 +92,6 @@ Summary:	AVC plugin for ptlib
 Group:		System/Libraries
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins-avc = %{version}-%{release}
-Obsoletes:	%{mklibname pt 2}-plugins-avc < 2.4.1-2mdv
 
 %description -n	%{libname}-plugins-avc
 This package contains the AVC plugin for ptlib.
@@ -114,8 +110,6 @@ This package contains the AVC plugin for ptlib.
 %make RPM_OPT_FLAGS="%{optflags}"
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
 
 %multiarch_includes %{buildroot}%{_includedir}/ptbuildopts.h
@@ -142,33 +136,19 @@ find %{buildroot}%{_libdir} -type f -name '*.so*' -exec chmod 755 {} \;
 rm -f %{buildroot}%{_libdir}/libpt.so.?
 rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 %files -n %{libname}
-%defattr(-,root,root)
 %attr(0755,root,root) %{_libdir}/lib*.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc *.txt
 %attr(0755,root,root) %{_bindir}/ptlib-config
 %attr(0755,root,root) %{_libdir}/*.so
-%{_libdir}/*.*a
+%{_libdir}/*.a
 %{_includedir}/*
 %{_datadir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files -n %{libname}-plugins
-%defattr(-,root,root)
 %dir %{_libdir}/%{name}-%{version}
 %dir %{_libdir}/%{name}-%{version}/devices
 %dir %{_libdir}/%{name}-%{version}/devices/sound
@@ -179,10 +159,8 @@ rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/v4l2_pwplugin.so
 
 %files -n %{libname}-plugins-dc
-%defattr(-,root,root)
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/dc_pwplugin.so
 
 %files -n %{libname}-plugins-avc
-%defattr(-,root,root)
 %attr(0755,root,root) %{_libdir}/%{name}-%{version}/devices/videoinput/avc_pwplugin.so
 
