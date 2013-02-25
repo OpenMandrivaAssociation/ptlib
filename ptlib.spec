@@ -4,7 +4,7 @@
 %define libname		%mklibname %{fname} %{major}
 %define develname	%mklibname %{fname} -d
 
-%define url_ver %(echo %version | cut -d. -f1,2)
+%define url_ver %(echo %{version} | cut -d. -f1,2)
 
 Summary:	Portable Tool Library
 Name:		ptlib
@@ -24,7 +24,7 @@ BuildRequires:	pkgconfig(libavc1394)
 BuildRequires:	libdc1394_12-devel >= 0.9.5
 #BuildRequires:	pkgconfig(libdc1394-2)
 BuildRequires:	pkgconfig(libdv)
-BuildRequires:	pkgconfig(libraw1394)
+BuildRequires:	pkgconfig(libraw1394) = 1.3.0
 BuildRequires:	openldap-devel
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(sdl)
