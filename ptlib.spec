@@ -9,7 +9,7 @@
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	2.10.10
-Release:	1
+Release:	2
 License:	MPL
 Group:		System/Libraries
 URL:		http://www.opalvoip.org
@@ -67,7 +67,6 @@ Header files and libraries for developing applications that use ptlib.
 %package -n	%{libname}-plugins
 Summary:	Main plugins for ptlib
 Group:		System/Libraries
-Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins = %{version}-%{release}
 Provides:	%{name}-plugins-alsa = %{version}-%{release}
 Provides:	%{name}-plugins-oss = %{version}-%{release}
@@ -80,7 +79,6 @@ This package contains the oss, alsa, pulseaudio and v4l2 plugins for ptlib.
 %package -n	%{libname}-plugins-dc
 Summary:	Dc plugin for ptlib
 Group:		System/Libraries
-Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins-dc = %{version}-%{release}
 
 %description -n	%{libname}-plugins-dc
@@ -89,7 +87,6 @@ This package contains the dc plugin for ptlib.
 %package -n	%{libname}-plugins-avc
 Summary:	AVC plugin for ptlib
 Group:		System/Libraries
-Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-plugins-avc = %{version}-%{release}
 
 %description -n	%{libname}-plugins-avc
