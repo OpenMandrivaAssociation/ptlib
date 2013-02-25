@@ -8,7 +8,7 @@
 
 Summary:	Portable Tool Library
 Name:		ptlib
-Version:	2.10.9
+Version:	2.10.10
 Release:	1
 License:	MPL
 Group:		System/Libraries
