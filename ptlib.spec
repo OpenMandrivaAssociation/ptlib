@@ -24,8 +24,7 @@ BuildRequires:	pkgconfig(libavc1394)
 BuildRequires:	libdc1394_12-devel >= 0.9.5
 #BuildRequires:	pkgconfig(libdc1394-2)
 BuildRequires:	pkgconfig(libdv)
-BuildRequires:	libraw1394_8-devel
-#BuildRequires:	pkgconfig(libraw1394)
+BuildRequires:	pkgconfig(libraw1394)
 BuildRequires:	openldap-devel
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(sdl)
