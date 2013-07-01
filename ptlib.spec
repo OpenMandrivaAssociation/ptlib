@@ -24,8 +24,8 @@ BuildRequires:	pkgconfig(libavc1394)
 BuildRequires:	libdc1394_12-devel
 #BuildRequires:	pkgconfig(libdc1394-2)
 BuildRequires:	pkgconfig(libdv)
-#BuildRequires:	pkgconfig(libraw1394) = 1.3.0
-BuildRequires:	pkgconfig(libraw1394)
+BuildRequires:	pkgconfig(libraw1394) < 2.0.0
+#BuildRequires:	pkgconfig(libraw1394)
 BuildRequires:	openldap-devel
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(sdl)
@@ -33,6 +33,7 @@ BuildRequires:	unixODBC-devel
 BuildRequires:	pkgconfig(libpulse)
 # We are not ready for that yet
 BuildConflicts:	pkgconfig(libdc1394-2)
+BuildConflicts:	pkgconfig(libraw1394) >= 2.0.0
 
 %description
 PTLib is a C++ multi-platform abstraction library that has its genesis
