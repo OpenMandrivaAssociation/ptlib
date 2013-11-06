@@ -1,10 +1,9 @@
-%define	fname	pt
-
-%define major		%{version}
-%define libname		%mklibname %{fname} %{major}
-%define develname	%mklibname %{fname} -d
-
 %define url_ver %(echo %{version} | cut -d. -f1,2)
+%define	fname	pt
+%define major	%{version}
+%define libname	%mklibname %{fname} %{major}
+%define devname	%mklibname %{fname} -d
+
 
 Summary:	Portable Tool Library
 Name:		ptlib
@@ -12,25 +11,22 @@ Version:	2.10.10
 Release:	3
 License:	MPL
 Group:		System/Libraries
-URL:		http://www.opalvoip.org
+Url:		http://www.opalvoip.org
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/%{url_ver}/%{name}-%{version}.tar.xz
-BuildRequires:	autoconf
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	sed
+BuildRequires:	libdc1394_12-devel
+BuildRequires:	openldap-devel
+BuildRequires:	unixODBC-devel
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(libavc1394)
-BuildRequires:	libdc1394_12-devel
-#BuildRequires:	pkgconfig(libdc1394-2)
 BuildRequires:	pkgconfig(libdv)
 BuildRequires:	pkgconfig(libraw1394) < 2.0.0
-#BuildRequires:	pkgconfig(libraw1394)
-BuildRequires:	openldap-devel
+BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(sdl)
-BuildRequires:	unixODBC-devel
-BuildRequires:	pkgconfig(libpulse)
 # We are not ready for that yet
 BuildConflicts:	pkgconfig(libdc1394-2)
 BuildConflicts:	pkgconfig(libraw1394) >= 2.0.0
@@ -56,14 +52,14 @@ port but this never eventuated.
 
 This is the GNOME.org version of ptlib.
 
-%package -n	%{develname}
+%package -n	%{devname}
 Summary:	Portable Windows Libary development files
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Conflicts:	%{mklibname pwlib -d}
 
-%description -n	%{develname}
+%description -n	%{devname}
 Header files and libraries for developing applications that use ptlib.
 
 %package -n	%{libname}-plugins
@@ -99,11 +95,12 @@ This package contains the AVC plugin for ptlib.
 
 %build
 %configure2_5x \
-    --enable-v4l2 \
-    --enable-plugins \
-    --enable-oss \
-    --enable-avc \
-    --enable-dc
+	--disable-static \
+	--enable-v4l2 \
+	--enable-plugins \
+	--enable-oss \
+	--enable-avc \
+	--enable-dc
 
 %make RPM_OPT_FLAGS="%{optflags}"
 
@@ -135,16 +132,16 @@ rm -f %{buildroot}%{_libdir}/libpt.so.?
 rm -f %{buildroot}%{_libdir}/libpt.so.?.?
 
 %files -n %{libname}
-%attr(0755,root,root) %{_libdir}/lib*.so.%{major}*
+%{_libdir}/libpt.so.%{major}*
 
-%files -n %{develname}
+%files -n %{devname}
 %doc *.txt
-%attr(0755,root,root) %{_bindir}/ptlib-config
-%attr(0755,root,root) %{_libdir}/*.so
+%{_bindir}/ptlib-config
+%{_libdir}/*.so
 %{_libdir}/*.a
+%{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/*
 %{_datadir}/%{name}
-%{_libdir}/pkgconfig/%{name}.pc
 
 %files -n %{libname}-plugins
 %dir %{_libdir}/%{name}-%{version}
