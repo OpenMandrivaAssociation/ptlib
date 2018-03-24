@@ -7,13 +7,17 @@
 
 Summary:	Portable Tool Library
 Name:		ptlib
-Version:	2.10.10
-Release:	12
+Version:	2.10.11
+Release:	1
 License:	MPL
 Group:		System/Libraries
 Url:		http://www.opalvoip.org
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/%{url_ver}/%{name}-%{version}.tar.xz
 Patch1:		ptlib-2.10.10-mga-bison-parameter.patch
+Patch2:		ptlib-gcc5.patch
+Patch3:		ptlib-2.10.11-gcc6.patch
+Patch4:		ptlib-2.10.11-gcc7.patch
+Patch5:		ptlib-2.10.11-uio.patch
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	sed
@@ -96,6 +100,8 @@ This package contains the AVC plugin for ptlib.
 %apply_patches
 
 %build
+export CC=gcc
+export CXX=g++
 %configure \
 	--enable-v4l2 \
 	--enable-plugins \

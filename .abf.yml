@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   ptlib-2.10.10.tar.xz: aee340c07b8f2afa62b8e7b5e2d45746b073502e
+sources:
+  ptlib-2.10.11.tar.xz: 870c58fb9e6959793ddf214c951a1a8ba1f6ac12

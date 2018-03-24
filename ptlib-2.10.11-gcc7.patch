@@ -1,0 +1,12 @@
+diff -Nru a/src/ptclib/podbc.cxx b/src/ptclib/podbc.cxx
+--- a/src/ptclib/podbc.cxx	2013-08-15 01:20:27.000000000 +0200
++++ b/src/ptclib/podbc.cxx	2017-10-06 11:37:45.556349333 +0200
+@@ -1217,7 +1217,7 @@
+ 
+     while (InternalGetData((USHORT)Column,sbin.GetPointer(len + 1),len,&cb))
+ 	{
+-		if (sbin.Right(1) == '\0')			// Remove Null Char
++		if (sbin.Right(1) == NULL)			// Remove Null Char
+ 			Data = Data + sbin.Left(sbin.GetLength()-1);
+ 		else
+ 			Data = Data + sbin;
