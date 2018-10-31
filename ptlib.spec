@@ -8,7 +8,7 @@
 Summary:	Portable Tool Library
 Name:		ptlib
 Version:	2.10.11
-Release:	1
+Release:	2
 License:	MPL
 Group:		System/Libraries
 Url:		http://www.opalvoip.org
