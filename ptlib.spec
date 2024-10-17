@@ -11,7 +11,7 @@ Version:	2.10.11
 Release:	2
 License:	MPL
 Group:		System/Libraries
-Url:		http://www.opalvoip.org
+Url:		https://www.opalvoip.org
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/ptlib/%{url_ver}/%{name}-%{version}.tar.xz
 Patch1:		ptlib-2.10.10-mga-bison-parameter.patch
 Patch2:		ptlib-gcc5.patch
