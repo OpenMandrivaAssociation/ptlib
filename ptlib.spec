@@ -18,6 +18,11 @@ Patch2:		ptlib-gcc5.patch
 Patch3:		ptlib-2.10.11-gcc6.patch
 Patch4:		ptlib-2.10.11-gcc7.patch
 Patch5:		ptlib-2.10.11-uio.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	sed
